@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Madam Jii? 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #e91e63;
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cat-container {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .cat-container img {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 5px solid #fff;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.5);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .no-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.5);
+        }
+
+        .response-box {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 1.4em;
+            font-weight: 600;
+            animation: slideIn 0.5s ease;
+        }
+
+        .response-box.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .yes-response {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #c2185b;
+        }
+
+        .no-response {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #d32f2f;
+        }
+
+        .next-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .cat-container img {
+                width: 250px;
+                height: 250px;
+            }
+
+            button {
+                padding: 15px 35px;
+                font-size: 1.2em;
+            }
+
+            .button-container {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PAGE 1: Will you be my Madam Jii? -->
+    <div id="page1" class="page active">
+        <div class="container">
+            <h1>Will you be my Madam Jii? 💖</h1>
+            
+            <div class="cat-container">
+                <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&h=600&fit=crop" alt="Cute Cat with Rose">
+            </div>
+
+            <div class="button-container">
+                <button class="yes-btn" id="page1YesBtn">Yes 💘</button>
+                <button class="no-btn" id="page1NoBtn">No 😜</button>
+            </div>
+
+            <div id="page1Response" class="response-box"></div>
+            <div class="loading" id="page1Loading">💾 Saving your response...</div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: Do you love me? -->
+    <div id="page2" class="page">
+        <div class="container">
+            <h1>Do you love me? 💖</h1>
+            
+            <div class="cat-container">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=600&fit=crop" alt="Cute Cat">
+            </div>
+
+            <div class="button-container">
+                <button class="yes-btn" id="page2YesBtn">Yes 💘</button>
+                <button class="no-btn" id="page2NoBtn">No 😜</button>
+            </div>
+
+            <div id="page2Response" class="response-box"></div>
+            <div class="loading" id="page2Loading">💾 Saving your response...</div>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ IMPORTANT: Replace this with your Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzBpyzL96TJkzpi42EQh-5mg7koKL0eYClt1PNPdrQOG3u7Hv0537HufxciO_eC0cMn/exec';
+
+        // Global data storage
+        const allResponses = {
+            question1: {
+                question: "Will you be my Madam Jii?",
+                answer: null,
+                timestamp: null,
+                noAttempts: 0
+            },
+            question2: {
+                question: "Do you love me?",
+                answer: null,
+                timestamp: null,
+                noAttempts: 0
+            }
+        };
+
+        // Function to send data to Google Sheets
+        async function sendToGoogleSheets(data) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                return true;
+            } catch (error) {
+                console.error('Error sending to Google Sheets:', error);
+                return false;
+            }
+        }
+
+        // PAGE 1 LOGIC
+        const page1YesBtn = document.getElementById('page1YesBtn');
+        const page1NoBtn = document.getElementById('page1NoBtn');
+        const page1Response = document.getElementById('page1Response');
+        const page1Loading = document.getElementById('page1Loading');
+
+        let page1NoClicks = 0;
+        let page1YesScale = 1;
+
+        page1YesBtn.addEventListener('click', async function() {
+            allResponses.question1.answer = 'YES';
+            allResponses.question1.timestamp = new Date().toISOString();
+            allResponses.question1.noAttempts = page1NoClicks;
+
+            page1Response.className = 'response-box yes-response show';
+            page1Response.innerHTML = '🎉 Yay! You said YES! 💖<br>Moving to next question...';
+            
+            page1YesBtn.disabled = true;
+            page1NoBtn.disabled = true;
+
+            // Show loading
+            page1Loading.classList.add('show');
+
+            // Send to Google Sheets
+            await sendToGoogleSheets(allResponses.question1);
+
+            // Wait 2 seconds then go to page 2
+            setTimeout(() => {
+                document.getElementById('page1').classList.remove('active');
+                document.getElementById('page2').classList.add('active');
+            }, 2000);
+        });
+
+        page1NoBtn.addEventListener('click', function() {
+            page1NoClicks++;
+
+            page1YesScale += 0.15;
+            page1YesBtn.style.transform = `scale(${page1YesScale})`;
+
+            if (page1NoClicks === 1) {
+                page1Response.className = 'response-box no-response show';
+                page1Response.innerHTML = '😢 Aww! But I really want you to be my Madam Jii! 💝';
+            } else if (page1NoClicks === 2) {
+                page1Response.className = 'response-box no-response show';
+                page1Response.innerHTML = '😭 Please say yes! Look how big the Yes button is! 👉';
+            } else if (page1NoClicks >= 3) {
+                const x = Math.random() * (window.innerWidth - page1NoBtn.offsetWidth - 40);
+                const y = Math.random() * (window.innerHeight - page1NoBtn.offsetHeight - 40);
+                page1NoBtn.style.position = 'fixed';
+                page1NoBtn.style.left = x + 'px';
+                page1NoBtn.style.top = y + 'px';
+                
+                page1Response.className = 'response-box no-response show';
+                page1Response.innerHTML = '🏃‍♂️ The No button is escaping! Just click Yes! 😄';
+            }
+        });
+
+        // PAGE 2 LOGIC
+        const page2YesBtn = document.getElementById('page2YesBtn');
+        const page2NoBtn = document.getElementById('page2NoBtn');
+        const page2Response = document.getElementById('page2Response');
+        const page2Loading = document.getElementById('page2Loading');
+
+        let page2NoClicks = 0;
+        let page2YesScale = 1;
+
+        page2YesBtn.addEventListener('click', async function() {
+            allResponses.question2.answer = 'YES';
+            allResponses.question2.timestamp = new Date().toISOString();
+            allResponses.question2.noAttempts = page2NoClicks;
+
+            page2Response.className = 'response-box yes-response show';
+            page2Response.innerHTML = '🎉 You love me! This makes me so happy! 💖✨<br>Thank you! 😊';
+            
+            page2YesBtn.disabled = true;
+            page2NoBtn.disabled = true;
+
+            // Show loading
+            page2Loading.classList.add('show');
+
+            // Send complete data to Google Sheets
+            await sendToGoogleSheets({
+                ...allResponses.question2,
+                sessionId: Date.now(),
+                question1Answer: allResponses.question1.answer,
+                question1Timestamp: allResponses.question1.timestamp,
+                question1NoAttempts: allResponses.question1.noAttempts
+            });
+
+            page2Loading.innerHTML = '✅ All responses saved! Thank you! 💕';
+        });
+
+        page2NoBtn.addEventListener('click', function() {
+            page2NoClicks++;
+
+            page2YesScale += 0.15;
+            page2YesBtn.style.transform = `scale(${page2YesScale})`;
+
+            if (page2NoClicks === 1) {
+                page2Response.className = 'response-box no-response show';
+                page2Response.innerHTML = '😢 Really? I thought you loved me! 💝';
+            } else if (page2NoClicks === 2) {
+                page2Response.className = 'response-box no-response show';
+                page2Response.innerHTML = '😭 Come on! You already said yes to being my Madam Jii! 💕';
+            } else if (page2NoClicks >= 3) {
+                const x = Math.random() * (window.innerWidth - page2NoBtn.offsetWidth - 40);
+                const y = Math.random() * (window.innerHeight - page2NoBtn.offsetHeight - 40);
+                page2NoBtn.style.position = 'fixed';
+                page2NoBtn.style.left = x + 'px';
+                page2NoBtn.style.top = y + 'px';
+                
+                page2Response.className = 'response-box no-response show';
+                page2Response.innerHTML = '🏃‍♂️ No is running away again! Just say Yes! 😄';
+            }
+        });
+    </script>
+</body>
+</html>
